@@ -1,0 +1,24 @@
+{
+  "name": "ProyectoINFO248",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndresGutierrezSalas/ProyectoINFO248.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndresGutierrezSalas/ProyectoINFO248/issues"
+  },
+  "homepage": "https://github.com/AndresGutierrezSalas/ProyectoINFO248#readme"
+}
