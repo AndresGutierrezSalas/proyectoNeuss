@@ -1,0 +1,14 @@
+<h2 class='text-center bg-danger text-white'>Platillos disponibles</h2>
+<div>
+<ul>
+    <li class="text" *ngFor="let item of items">
+    <h3 class='text-center bg-dark text-white'>{{item.name}}</h3>
+      <br>
+      <img class="center" src={{item.image}} width="650" height="500">  
+      <br><br>
+      <p class='text-center bg-dark text-white'>$ {{item.price}}</p>
+      <p class='text-center bg-dark text-white'>id {{item.id}}</p>
+      <br><br><br><br><br>
+    </li>
+</ul>
+</div>

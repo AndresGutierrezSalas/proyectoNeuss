@@ -1,0 +1,12 @@
+
+<body *ngIf="volver==false && agregarPlatillo==false">
+	<lista></lista>	
+	<p class='text-center bg-danger text-white' *ngIf="vacio">necesita agregar platillos</p>
+	<div>
+		<button class="center btn btn-outline-dark btn-lg" (click)="agregarPlatillo=true">Agregar nuevo platillo</button>
+		<button class="izq btn btn-outline-dark btn-lg" (click)="volver=true">Volver</button>
+	</div>
+	
+</body>
+<administrador *ngIf="volver==true"></administrador>
+<platillo *ngIf="agregarPlatillo==true"></platillo>

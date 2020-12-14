@@ -1,0 +1,12 @@
+<!-- botones para el inicio de sesión del administrador-->
+<div class="center" *ngIf="verPedidos==false && verPlatillos==false"> 
+	<button class="btn btn-outline-dark btn-lg py-4" (click)="verPlatillos=true">Administrar platillos</button>
+	<p></p>   
+	<button class="btn btn-outline-dark btn-lg py-4" (click)="verPedidos=true">Administrar pedidos</button>
+</div>
+
+
+<listaPlatillos *ngIf="verPlatillos">
+</listaPlatillos>
+<listaPedidosActivos *ngIf="verPedidos">
+</listaPedidosActivos>
