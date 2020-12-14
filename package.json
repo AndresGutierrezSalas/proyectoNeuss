@@ -2,7 +2,7 @@
   "name": "ProyectoINFO248",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server/server.js",
   "directories": {
     "doc": "docs"
   },
@@ -20,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/AndresGutierrezSalas/ProyectoINFO248/issues"
   },
-  "homepage": "https://github.com/AndresGutierrezSalas/ProyectoINFO248#readme"
+  "homepage": "https://github.com/AndresGutierrezSalas/ProyectoINFO248#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
 }
