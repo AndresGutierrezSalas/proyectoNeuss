@@ -23,8 +23,7 @@
               "@firebase/remote-config",
               "@firebase/component",
               "@firebase/auth",
-              "@firebase/util",
-              "angularfire2/firestore"
+              "@firebase/util"
            ],
             "outputPath": "dist/proyectoNeuss",
             "index": "src/index.html",
