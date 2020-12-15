@@ -19,12 +19,12 @@ pipeline {
           }
           stage('Test') {
             steps {
-              chmod +x './jenkins/scripts/test.sh'
+              sh './jenkins/scripts/test.sh'
             }
           }
           stage('Build') {
             steps {
-              chmod +xs './jenkins/scripts/build.sh'
+              sh './jenkins/scripts/build.sh'
             }
           }
           stage('Archive') {
@@ -42,11 +42,11 @@ pipeline {
         skipDefaultCheckout()
       }
       steps {
-        sh 'rm -rf /var/www/test-project'
-        sh 'mkdir /var/www/test-project'
-        sh 'cp -Rp build/** /var/www/test-project'
-        sh 'docker stop test-project || true && docker rm test-project || true'
-        sh 'docker run -dit --name test-project -p 8001:80 -v /var/www/test-project/:/usr/local/apache2/htdocs/ httpd:2.4'
+        sh 'rm -rf /var/www/neuss'
+        sh 'mkdir /var/www/neuss'
+        sh 'cp -Rp build/** /var/www/neuss'
+        sh 'docker stop neuss || true && docker rm neuss || true'
+        sh 'docker run -dit --name neuss -p 8001:80 -v /var/www/neuss/:/usr/local/apache2/htdocs/ httpd:2.4'
       }
     }
   }
