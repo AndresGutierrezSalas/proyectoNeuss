@@ -4,7 +4,7 @@ pipeline {
     stage('Checkout, Test & Build') {
         agent {
           docker {
-            image 'node:10-alpine'
+            image 'node:10-alpine' //revisar
             args '-p 3001:3000'
           }
         }
@@ -14,12 +14,7 @@ pipeline {
         stages {
           stage('Install') {
             steps {
-              sh 'npm install && ng serve'
-            }
-          }
-          stage('Test') {
-            steps {
-              sh './jenkins/scripts/test.sh'
+              sh 'npm install'
             }
           }
           stage('Build') {
