@@ -19,7 +19,7 @@ pipeline {
           }
           stage('Test') {
             steps {
-              sh './src/test.ts'
+              sh './jenkins/scripts/test.sh'
             }
           }
           stage('Build') {
@@ -46,7 +46,7 @@ pipeline {
         sh 'mkdir /var/www/neuss'
         sh 'cp -Rp build/** /var/www/neuss'
         sh 'docker stop neuss || true && docker rm neuss || true'
-        sh 'docker run -dit --name neuss -p 8009:80 -v /var/www/neuss/:/usr/local/apache2/htdocs/ httpd:2.4'
+        sh 'docker run -dit --name neuss -p 8002:80 -v /var/www/neuss/:/usr/local/apache2/htdocs/ httpd:2.4'
       }
     }
   }
