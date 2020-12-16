@@ -14,12 +14,12 @@ pipeline {
         stages {
           stage('Install') {
             steps {
-              sh 'npm install'
+              sh 'npm install && ng serve'
             }
           }
           stage('Test') {
             steps {
-              sh 'npm run-script test'
+              sh './jenkins/scripts/test.sh'
             }
           }
           stage('Build') {
