@@ -20,7 +20,7 @@ pipeline {
           stage('Test') {
             steps {
 
-                ng test
+                npm test
 
             }
           }
