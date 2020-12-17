@@ -4,7 +4,7 @@ pipeline {
     stage('Checkout, Test & Build') {
         agent {
           docker {
-            image 'node:10-alpine' //revisar
+            image 'node:10-alpine' 
             args '-p 3001:3000'
           }
         }
@@ -19,11 +19,9 @@ pipeline {
           }
           stage('Test') {
             steps {
-                npm test
-                npm audit | tail -n 2
+              sh './jenkins/scripts/test.sh'
             }
           }
-
           stage('Build') {
             steps {
               sh './jenkins/scripts/build.sh'
