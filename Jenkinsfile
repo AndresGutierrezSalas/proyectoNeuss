@@ -19,7 +19,6 @@ pipeline {
           }
           stage('Test') {
             steps {
-                set -x
                 npm test
                 npm audit | tail -n 2
             }
