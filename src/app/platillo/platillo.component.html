@@ -1,3 +1,38 @@
-<p>aca deberia ir todo lo relacionado con agregar un nuevo platillo</p>
+<body *ngIf="volver==false"> 
+<h4>ingrese los datos del platillo que desea agregar al menú de platillos</h4>
 <br>
+<label class="image-upload-container btn btn-bwm"> <!--para agregar imagen pero no se como almacenar-->
+    <span>Agregar imagen </span>
+       <input #imageInput
+         type="file"
+         accept="image/*"
+         (change)="processFile(imageInput)">
+</label>
 
+<form (ngSubmit)="agregar()">
+  <input 
+  type="text" placeholder="ingrese el nombre del platillo" 
+  name="name" class="form-control" 
+  [(ngModel)]="item.name"/>
+  <!-- ng model llena el item.name-->
+  <input type="text" placeholder="ingrese descripcion" 
+  name="description" class="form-control"
+  [(ngModel)]="item.description"/> 
+  <!--se le agrega a todos la variable que lee name="lo que se define en item por ejemplo 'description'"-->
+  <input type="text" placeholder="ingrese link imagen" 
+  name="image" class="form-control"
+  [(ngModel)]="item.image"
+  />
+  <input type="number" placeholder="ingrese precio del platillo" 
+  name="price" class="form-control"
+  [(ngModel)]="item.price"/>
+
+  <button class="btn btn-warning mt-3" type="submit">Almacenar platillo</button>
+</form>
+
+
+
+<br>
+<button class="center btn btn-outline-dark btn-lg" (click)="volver=true">Volver</button>
+</body>
+<listaPlatillos *ngIf="volver==true"></listaPlatillos>

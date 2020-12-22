@@ -7,13 +7,6 @@
 		<button class="izq btn btn-outline-dark btn-lg" (click)="volver=true">Volver</button>
 	</div>
 	
-	<label class="image-upload-container btn btn-bwm"> <!--para agregar imagen pero no se como almacenar-->
-		<span>Agregar imagen</span>
-		   <input #imageInput
-			 type="file"
-			 accept="image/*"
-			 (change)="processFile(imageInput)">
-	</label>
 </body>
 <administrador *ngIf="volver==true"></administrador>
 <platillo *ngIf="agregarPlatillo==true"></platillo>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { ConexionService } from 'src/app/services/conexion.service';
 
 @Component({
   selector: 'lista',
@@ -9,9 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class ListaComponent implements OnInit {
 
-  items: Observable<any[]>;
-  constructor(firestore: AngularFirestore) {
-    	this.items = firestore.collection('items').valueChanges();
+  items: any;
+  constructor(private conexion:ConexionService) {
+    	this.conexion.ListaItem().subscribe(items=>{
+        this.items = items;
+      })
   }
 
   ngOnInit(): void {
