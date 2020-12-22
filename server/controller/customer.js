@@ -19,8 +19,11 @@ app.get('/customer/:id', (req, res) => {
 
 app.post('/customer', (req, res) => {
     let body = req.body;
-    console.log(body);
-    res.json({ok: true});
+    mysqlConnection.query('INSERT INTO User SET ?', [body], (err, customers) => {
+        if(err) return res.status(400).json({err});
+        console.log(body);
+        res.json({ok: true});
+    });
 });
 
-module.exports= app;
+module.exports = app;
