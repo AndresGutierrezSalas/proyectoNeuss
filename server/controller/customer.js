@@ -3,7 +3,7 @@ const mysqlConnection = require('../database/database');
 const app = express();
 
 app.get('/customer', (req, res) => {
-    mysqlConnection.query('SELECT * FROM User', (err, customers) => {
+    mysqlConnection.query('SELECT Name, LastName, Email, Address, Phone FROM User JOIN Customer USING(idUser)', (err, customers) => {
         if(err) return res.status(400).json({err});
         res.json(customers);
     });
@@ -11,18 +11,34 @@ app.get('/customer', (req, res) => {
 
 app.get('/customer/:id', (req, res) => {
     const {id} = req.params;
-    mysqlConnection.query('SELECT * FROM User JOIN Customer WHERE User.idUser = ?', [id], (err, customers) => {
+    mysqlConnection.query('SELECT Name, LastName, Email, Address, Phone FROM User JOIN Customer USING(idUser) WHERE User.idUser = ?', [id], (err, customers) => {
         if(err) return res.status(400).json({err});
+        if(Object.entries(customers).length == 0) return res.status(400).json({
+            ok: false,
+            message: "No encontrado"
+        });
         res.json(customers);
     });
 });
 
 app.post('/customer', (req, res) => {
-    let body = req.body;
-    mysqlConnection.query('INSERT INTO User SET ?', [body], (err, customers) => {
+    let {Name, LastName, Email, Password, Address, Phone} = req.body;
+    mysqlConnection.query('INSERT INTO User SET ?', {Name, LastName, Email, Password} , (err, users) => {
         if(err) return res.status(400).json({err});
-        console.log(body);
-        res.json({ok: true});
+        idUser = users.insertId;
+        mysqlConnection.query('INSERT INTO Customer SET ?', {Address, Phone, idUser}, (err, customers) => {
+            if(err) return res.status(400).json({err});
+            res.json({
+                ok: true,
+                customer: {
+                    Name,
+                    LastName,
+                    Email,
+                    Address,
+                    Phone
+                }
+            });
+        });
     });
 });
 
