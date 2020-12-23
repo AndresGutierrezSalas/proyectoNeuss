@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `neuss`.`User` (
   `Name` VARCHAR(45) NOT NULL,
   `LastName` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
-  `Password` VARCHAR(45) NOT NULL,
+  `Password` CHAR(128) NOT NULL,
   PRIMARY KEY (`idUser`))
 ENGINE = InnoDB;
 

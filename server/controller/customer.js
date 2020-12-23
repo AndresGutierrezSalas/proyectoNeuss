@@ -1,5 +1,7 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const mysqlConnection = require('../database/database');
+const saltRounds = 10;
 const app = express();
 
 app.get('/customer', (req, res) => {
@@ -23,6 +25,7 @@ app.get('/customer/:id', (req, res) => {
 
 app.post('/customer', (req, res) => {
     let {Name, LastName, Email, Password, Address, Phone} = req.body;
+    Password = bcrypt.hashSync(Password, saltRounds);
     mysqlConnection.query('INSERT INTO User SET ?', {Name, LastName, Email, Password} , (err, users) => {
         if(err) return res.status(400).json({err});
         idUser = users.insertId;
