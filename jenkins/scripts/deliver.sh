@@ -1,4 +1,3 @@
-  
 #!/usr/bin/env sh
 
 echo 'Moving artifacts to /home/vps218/www'
