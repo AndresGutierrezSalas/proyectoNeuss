@@ -13,7 +13,7 @@ app.get('/customer', (req, res) => {
 
 app.get('/customer/:id', (req, res) => {
     const {id} = req.params;
-    mysqlConnection.query('SELECT Name, LastName, Email, Address, Phone FROM User JOIN Customer USING(idUser) WHERE User.idUser = ?', [id], (err, customers) => {
+    mysqlConnection.query('SELECT Name, LastName, Email, Address, Phone FROM User JOIN Customer USING(idUser) WHERE idUser = ?', [id], (err, customers) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(customers).length == 0) return res.status(400).json({
             ok: false,
