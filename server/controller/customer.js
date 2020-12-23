@@ -1,7 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const mysqlConnection = require('../database/database');
-const saltRounds = 10;
 const app = express();
 
 app.get('/customer', (req, res) => {
