@@ -20,7 +20,7 @@ app.get('/customer/:id', (req, res) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(customers).length == 0) return res.status(400).json({
             ok: false,
-            message: "Usuario no encontrado"
+            message: "Cliente no encontrado"
         });
         res.json(customers);
     });
@@ -49,7 +49,7 @@ app.put('/customer/:id', (req, res) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(findUser).length == 0) return res.status(400).json({
             ok: false,
-            message: "Usuario no encontrado"
+            message: "Cliente no encontrado"
         });
         ['Password', 'idUser', 'idCustomer'].forEach((k) => {delete body[k]});
         mysqlConnection.query('UPDATE User JOIN Customer USING(idUser) SET ? WHERE idUser = ?', [body, id], (err, users) => {
@@ -68,11 +68,11 @@ app.delete('/customer/:id', (req, res) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(findUser).length == 0) return res.status(400).json({
             ok: false,
-            message: "Usuario no encontrado"
+            message: "Cliente no encontrado"
         });
-        mysqlConnection.query('DELETE FROM Customer WHERE idUser = ?', [id], (err, customerDel) => {
+        mysqlConnection.query('DELETE FROM Customer WHERE idUser = ?', id, (err, customerDel) => {
             if(err) return res.status(400).json({err});
-            mysqlConnection.query('DELETE FROM User WHERE idUser = ?', [id], (err, userDel) => {
+            mysqlConnection.query('DELETE FROM User WHERE idUser = ?', id, (err, userDel) => {
                 if(err) return res.status(400).json({err});
                 res.json({ok: true});
             });
