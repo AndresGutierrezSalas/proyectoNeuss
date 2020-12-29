@@ -32,14 +32,32 @@ app.post('/customer', (req, res) => {
             if(err) return res.status(400).json({err});
             res.json({
                 ok: true,
-                customer: {
-                    Name,
-                    LastName,
-                    Email,
-                    Address,
-                    Phone
-                }
+                customer: {Name, LastName, Email, Address, Phone}
             });
+        });
+    });
+});
+
+app.put('/customer/:id', (req, res) => {
+    let id = req.params.id;
+    let body = req.body;
+    ['Password', 'idUser', 'idCustomer'].forEach((k) => {delete body[k]});
+    mysqlConnection.query('UPDATE User JOIN Customer USING(idUser) SET ? WHERE idUser = ?', [body, id], (err, users) => {
+        if(err) return res.status(400).json({err});
+        res.json({
+            ok: true,
+            body
+        });
+    });
+});
+
+app.delete('/customer/:id', (req, res) => {
+    let id = req.params.id;
+    mysqlConnection.query('DELETE FROM Customer WHERE idUser = ?', [id], (err, customerDel) => {
+        if(err) return res.status(400).json({err});
+        mysqlConnection.query('DELETE FROM User WHERE idUser = ?', [id], (err, userDel) => {
+            if(err) return res.status(400).json({err});
+            res.json({ok: true});
         });
     });
 });
