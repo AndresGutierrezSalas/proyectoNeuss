@@ -3,8 +3,8 @@
 	<lista></lista>	
 	<p class='text-center bg-danger text-white' *ngIf="vacio">necesita agregar platillos</p>
 	<div>
-		<button class="center btn btn-outline-dark btn-lg" (click)="agregarPlatillo=true">Agregar nuevo platillo</button>
-		<button class="izq btn btn-outline-dark btn-lg" (click)="volver=true">Volver</button>
+		<button type="button" pButton class="center btn btn-outline-dark btn-lg" label="Agregar nuevo platillo" (click)="agregarPlatillo=true"></button>
+		<button type="button" pButton class="izq btn btn-outline-dark btn-lg" label="Volver" (click)="volver=true"></button>
 	</div>
 	
 </body>

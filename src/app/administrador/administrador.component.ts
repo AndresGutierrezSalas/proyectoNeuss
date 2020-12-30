@@ -10,3 +10,6 @@ export class administrador{
 	verPlatillos: boolean = false;
 	
 }
+export class evento1{
+	verPedidos: boolean = true;	
+}

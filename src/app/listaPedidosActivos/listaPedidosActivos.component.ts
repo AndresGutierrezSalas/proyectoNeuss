@@ -6,6 +6,6 @@ import {Component} from '@angular/core';
 	styleUrls: ['./listaPedidosActivos.component.css']
 })
 export class listaPedidosActivos{
-	volver: boolean = false;
+	volver2: boolean = false;
 	
 }

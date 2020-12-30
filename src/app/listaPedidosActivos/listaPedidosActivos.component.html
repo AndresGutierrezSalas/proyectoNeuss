@@ -1,4 +1,5 @@
-<body *ngIf="volver==false" class= "center">
-	<button class="btn btn-outline-dark btn-lg" (click)="volver=true">Volver</button>
+<body *ngIf="volver2==false" class= "center">
+	
+	<button type="button" pButton class="izq btn btn-outline-dark btn-lg" label="Volver" (click)="volver2=true"></button>
 </body>
-<administrador *ngIf="volver==true"></administrador>
+<administrador *ngIf="volver2==true"></administrador>
