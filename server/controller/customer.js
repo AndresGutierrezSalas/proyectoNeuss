@@ -30,11 +30,22 @@ app.post('/customer', (req, res) => {
     let {Name, LastName, Email, Password, Address, Phone} = req.body;
     Password = bcrypt.hashSync(Password, saltRounds);
     mysqlConnection.query('INSERT INTO User SET ?', {Name, LastName, Email, Password} , (err, users) => {
-        if(err) return res.status(400).json({err});
+        if(err) return res.status(400).json({
+            ok: false,
+            message: "Error en los argumentos",
+            arg: "Name, LastName, Email, Password, Address, Phone"
+        });
         idUser = users.insertId;
         mysqlConnection.query('INSERT INTO Customer SET ?', {Address, Phone, idUser}, (err, customers) => {
-            if(err) return res.status(400).json({err});
-            res.json({
+            if(err){
+                mysqlConnection.query('DELETE FROM User WHERE idUser = ?', idUser);
+                return res.status(400).json({
+                    ok: false,
+                    message: "Error en los argumentos",
+                    arg: "Name, LastName, Email, Password, Address, Phone"
+                });
+            }
+            return res.json({
                 ok: true,
                 customer: {Name, LastName, Email, Address, Phone}
             });
@@ -70,13 +81,9 @@ app.delete('/customer/:id', (req, res) => {
             ok: false,
             message: "Cliente no encontrado"
         });
-        mysqlConnection.query('DELETE FROM Customer WHERE idUser = ?', id, (err, customerDel) => {
-            if(err) return res.status(400).json({err});
-            mysqlConnection.query('DELETE FROM User WHERE idUser = ?', id, (err, userDel) => {
-                if(err) return res.status(400).json({err});
-                res.json({ok: true});
-            });
-        });
+        mysqlConnection.query('DELETE FROM Customer WHERE idUser = ?', id);
+        mysqlConnection.query('DELETE FROM User WHERE idUser = ?', id);
+        res.json({ok: true});
     });
 });
 

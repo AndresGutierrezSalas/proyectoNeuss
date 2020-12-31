@@ -27,17 +27,19 @@ app.get('/admin/:id', (req, res) => {
 });
 
 app.post('/admin', (req, res) => {
-    let body= req.body;
+    let {Name, LastName, Email, Password} = req.body;
     Password = bcrypt.hashSync(Password, saltRounds);
     mysqlConnection.query('INSERT INTO User SET ?', {Name, LastName, Email, Password}, (err, users) => {
-        if(err) return res.status(400).json({err});
+        if(err) return res.status(400).json({
+            ok: false,
+            message: "Error en los argumentos",
+            arg: "Name, LastName, Email, Password"
+        });
         idUser = users.insertId;
-        mysqlConnection.query('INSERT INTO Admin SET ?', {idUser}, (err, admins) => {
-            if(err) return res.status(400).json({err});
-            res.json({
-                ok: true,
-                admin: {Name, LastName, Email}
-            });
+        mysqlConnection.query('INSERT INTO Admin SET ?', idUser);
+        res.json({
+            ok: true,
+            admin: {Name, LastName, Email}
         });
     });
 });
@@ -69,13 +71,9 @@ app.delete('/admin/:id', (req, res) => {
             ok: false,
             message: "Administrador no encontrado"
         });
-        mysqlConnection.query('DELETE FROM Admin WHERE idUser = ?', id, (err, adminDel) => {
-            if(err) return res.status(400).json({err});
-            mysqlConnection.query('DELETE FROM User WHERE idUser = ?', id, (err, userDel) => {
-                if(err) return res.status(400).json({err});
-                res.json({ok: true});
-            });
-        });
+        mysqlConnection.query('DELETE FROM Admin WHERE idUser = ?', id)
+        mysqlConnection.query('DELETE FROM User WHERE idUser = ?', id)
+        res.json({ok: true});
     });
 });
 
