@@ -1,9 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const mysqlConnection = require('../database/database');
+const {checkToken, checkAdmin} = require('../middlewares/authentication');
 const app = express();
 
-app.get('/customer', (req, res) => {
+app.get('/customer', [checkToken, checkAdmin], (req, res) => {
     mysqlConnection.query('SELECT Name, LastName, Email, Address, Phone FROM User JOIN Customer USING(idUser)', (err, customers) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(customers).length == 0) return res.status(400).json({
@@ -14,7 +15,7 @@ app.get('/customer', (req, res) => {
     });
 });
 
-app.get('/customer/:id', (req, res) => {
+app.get('/customer/:id', [checkToken, checkAdmin], (req, res) => {
     const id = req.params.id;
     mysqlConnection.query('SELECT Name, LastName, Email, Address, Phone FROM User JOIN Customer USING(idUser) WHERE idUser = ?', id, (err, customers) => {
         if(err) return res.status(400).json({err});
@@ -53,7 +54,7 @@ app.post('/customer', (req, res) => {
     });
 });
 
-app.put('/customer/:id', (req, res) => {
+app.put('/customer/:id', checkToken, (req, res) => {
     let id = req.params.id;
     let body = req.body;
     mysqlConnection.query('SELECT * FROM User JOIN Customer USING(idUser) WHERE idUser = ?', id, (err, findUser) => {
@@ -73,7 +74,7 @@ app.put('/customer/:id', (req, res) => {
     });
 });
 
-app.delete('/customer/:id', (req, res) => {
+app.delete('/customer/:id', checkToken, (req, res) => {
     let id = req.params.id;
     mysqlConnection.query('SELECT * FROM User JOIN Customer USING(idUser) WHERE idUser = ?', id, (err, findUser) => {
         if(err) return res.status(400).json({err});

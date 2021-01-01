@@ -1,8 +1,9 @@
 const express = require('express');
 const mysqlConnection = require('../database/database');
+const {checkToken, checkAdmin} = require('../middlewares/authentication');
 const app = express();
 
-app.get('/course', (req, res) => {
+app.get('/course', checkToken, (req, res) => {
     mysqlConnection.query('SELECT * FROM Course', (err, courses) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(courses).length == 0) return res.status(400).json({
@@ -13,7 +14,7 @@ app.get('/course', (req, res) => {
     });
 })
 
-app.get('/course/:id', (req, res) => {
+app.get('/course/:id', checkToken, (req, res) => {
     const {id} = req.params;
     mysqlConnection.query('SELECT * FROM Course WHERE idCourse = ?', [id], (err, courses) => {
         if(err) return res.status(400).json({err});
@@ -25,7 +26,7 @@ app.get('/course/:id', (req, res) => {
     });
 });
 
-app.post('/course', (req, res) => {
+app.post('/course', [checkToken, checkAdmin], (req, res) => {
     let {Name, Stock, Price, Description} = req.body;
     Stock = Stock || 0;
     mysqlConnection.query('INSERT INTO Course SET ?', {Name, Stock, Price, Description}, (err, courses) => {
@@ -37,7 +38,7 @@ app.post('/course', (req, res) => {
     });
 });
 
-app.put('/course/:id', (req, res) => {
+app.put('/course/:id', [checkToken, checkAdmin], (req, res) => {
     let id = req.params.id;
     let body = req.body;
     mysqlConnection.query('SELECT * FROM Course WHERE idCourse = ?', id, (err, findcourse) => {
@@ -57,7 +58,7 @@ app.put('/course/:id', (req, res) => {
     });
 });
 
-app.delete('/course/:id', (req, res) => {
+app.delete('/course/:id', [checkToken, checkAdmin], (req, res) => {
     let id = req.params.id;
     mysqlConnection.query('SELECT * FROM Course WHERE idCourse = ?', id, (err, findCourse) =>{
         if(err) return res.status(400).json({err});

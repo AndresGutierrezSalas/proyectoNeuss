@@ -1,9 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const mysqlConnection = require('../database/database');
+const {checkToken, checkAdmin} = require('../middlewares/authentication');
 const app = express();
 
-app.get('/admin', (req, res) => {
+app.get('/admin', [checkToken, checkAdmin], (req, res) => {
     mysqlConnection.query('SELECT Name, LastName, Email FROM User JOIN Admin USING(idUser)', (err, admins) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(admins).length == 0) return res.status(400).json({
@@ -14,7 +15,7 @@ app.get('/admin', (req, res) => {
     });
 });
 
-app.get('/admin/:id', (req, res) => {
+app.get('/admin/:id', [checkToken, checkAdmin], (req, res) => {
     const id = req.params.id;
     mysqlConnection.query('SELECT Name, LastName, Email FROM User JOIN Admin USING(idUser) WHERE idUser = ?', id, (err, admins) => {
         if(err) return res.status(400).json({err});
@@ -26,7 +27,7 @@ app.get('/admin/:id', (req, res) => {
     });
 });
 
-app.post('/admin', (req, res) => {
+app.post('/admin', [checkToken, checkAdmin], (req, res) => {
     let {Name, LastName, Email, Password} = req.body;
     Password = bcrypt.hashSync(Password, saltRounds);
     mysqlConnection.query('INSERT INTO User SET ?', {Name, LastName, Email, Password}, (err, users) => {
@@ -36,15 +37,17 @@ app.post('/admin', (req, res) => {
             arg: "Name, LastName, Email, Password"
         });
         idUser = users.insertId;
-        mysqlConnection.query('INSERT INTO Admin SET ?', idUser);
-        res.json({
-            ok: true,
-            admin: {Name, LastName, Email}
+        mysqlConnection.query('INSERT INTO Admin SET ?', {idUser}, (err, adminDB) => {
+            if(err) return res.status(400).json({ok: false});
+            res.json({
+                ok: true,
+                admin: {Name, LastName, Email}
+            });
         });
     });
 });
 
-app.put('/admin/:id', (req, res) => {
+app.put('/admin/:id', [checkToken, checkAdmin], (req, res) => {
     let id = req.params.id;
     let body = req.body;
     mysqlConnection.query('SELECT * FROM User JOIN Admin USING(idUser) WHERE idUser = ?', id, (err, findAdmin) => {
@@ -64,7 +67,7 @@ app.put('/admin/:id', (req, res) => {
     });
 });
 
-app.delete('/admin/:id', (req, res) => {
+app.delete('/admin/:id', [checkToken, checkAdmin], (req, res) => {
     let id = req.params.id;
     mysqlConnection.query('SELECT * FROM User JOIN Admin USING(idUser) WHERE idUser = ?', id, (err, findUser) => {
         if(Object.entries(findUser).length == 0) return res.status(400).json({
