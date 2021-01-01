@@ -38,7 +38,7 @@ app.post('/admin', [checkToken, checkAdmin], (req, res) => {
         });
         idUser = users.insertId;
         mysqlConnection.query('INSERT INTO Admin SET ?', {idUser}, (err, adminDB) => {
-            if(err) return res.status(400).json({ok: false});
+            if(err) return res.status(400).json({err});
             res.json({
                 ok: true,
                 admin: {Name, LastName, Email}
@@ -56,7 +56,8 @@ app.put('/admin/:id', [checkToken, checkAdmin], (req, res) => {
             ok: false,
             message: "Administrador no encontrado"
         });
-        ['Password', 'idUser', 'idAdmin'].forEach((k) => {delete body[k]});
+        if(body.Password) body.Password = bcrypt.hashSync(body.Password, saltRounds);
+        ['idUser', 'idAdmin'].forEach((k) => {delete body[k]});
         mysqlConnection.query('UPDATE User JOIN Admin USING(idUser) SET ? WHERE idUser = ?', [body, id], (err, admins) => {
             if(err) return res.status(400).json({err});
             res.json({

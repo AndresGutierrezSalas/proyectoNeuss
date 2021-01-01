@@ -63,7 +63,8 @@ app.put('/customer/:id', checkToken, (req, res) => {
             ok: false,
             message: "Cliente no encontrado"
         });
-        ['Password', 'idUser', 'idCustomer'].forEach((k) => {delete body[k]});
+        if(body.Password) body.Password = bcrypt.hashSync(body.Password, saltRounds);
+        ['idUser', 'idCustomer'].forEach((k) => {delete body[k]});
         mysqlConnection.query('UPDATE User JOIN Customer USING(idUser) SET ? WHERE idUser = ?', [body, id], (err, users) => {
             if(err) return res.status(400).json({err});
             res.json({
