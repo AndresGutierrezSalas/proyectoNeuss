@@ -4,6 +4,17 @@ const {checkToken, checkAdmin} = require('../middlewares/authentication');
 const app = express();
 
 app.get('/course', checkToken, (req, res) => {
+    mysqlConnection.query('SELECT * FROM Course WHERE Stock > 0', (err, courses) => {
+        if(err) return res.status(400).json({err});
+        if(Object.entries(courses).length == 0) return res.status(400).json({
+            ok: false,
+            message: "No existen platillos registrados"
+        });
+        res.json(courses);
+    });
+});
+
+app.get('/course/all', [checkToken, checkAdmin], (req, res) => {
     mysqlConnection.query('SELECT * FROM Course', (err, courses) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(courses).length == 0) return res.status(400).json({
@@ -12,7 +23,7 @@ app.get('/course', checkToken, (req, res) => {
         });
         res.json(courses);
     });
-})
+});
 
 app.get('/course/:id', checkToken, (req, res) => {
     const {id} = req.params;
