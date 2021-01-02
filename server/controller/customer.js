@@ -29,26 +29,32 @@ app.get('/customer/:id', [checkToken, checkAdmin], (req, res) => {
 
 app.post('/customer', (req, res) => {
     let {Name, LastName, Email, Password, Address, Phone} = req.body;
-    Password = bcrypt.hashSync(Password, saltRounds);
-    mysqlConnection.query('INSERT INTO User SET ?', {Name, LastName, Email, Password} , (err, users) => {
-        if(err) return res.status(400).json({
+    mysqlConnection.query('SELECT * FROM User WHERE Email = ?', Email, (err, userDB) => {
+        if(Object.entries(userDB).length != 0) return res.json({
             ok: false,
-            message: "Error en los argumentos",
-            arg: "Name, LastName, Email, Password, Address, Phone"
+            message: "Correo Utilizado"
         });
-        idUser = users.insertId;
-        mysqlConnection.query('INSERT INTO Customer SET ?', {Address, Phone, idUser}, (err, customers) => {
-            if(err){
-                mysqlConnection.query('DELETE FROM User WHERE idUser = ?', idUser);
-                return res.status(400).json({
-                    ok: false,
-                    message: "Error en los argumentos",
-                    arg: "Name, LastName, Email, Password, Address, Phone"
+        Password = bcrypt.hashSync(Password, saltRounds);
+        mysqlConnection.query('INSERT INTO User SET ?', {Name, LastName, Email, Password} , (err, users) => {
+            if(err) return res.status(400).json({
+                ok: false,
+                message: "Error en los argumentos",
+                arg: "Name, LastName, Email, Password, Address, Phone"
+            });
+            idUser = users.insertId;
+            mysqlConnection.query('INSERT INTO Customer SET ?', {Address, Phone, idUser}, (err, customers) => {
+                if(err){
+                    mysqlConnection.query('DELETE FROM User WHERE idUser = ?', idUser);
+                    return res.status(400).json({
+                        ok: false,
+                        message: "Error en los argumentos",
+                        arg: "Name, LastName, Email, Password, Address, Phone"
+                    });
+                }
+                return res.json({
+                    ok: true,
+                    customer: {idUser, Name, LastName, Email, Address, Phone}
                 });
-            }
-            return res.json({
-                ok: true,
-                customer: {idUser, Name, LastName, Email, Address, Phone}
             });
         });
     });

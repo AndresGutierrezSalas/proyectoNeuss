@@ -29,19 +29,25 @@ app.get('/admin/:id', [checkToken, checkAdmin], (req, res) => {
 
 app.post('/admin', [checkToken, checkAdmin], (req, res) => {
     let {Name, LastName, Email, Password} = req.body;
-    Password = bcrypt.hashSync(Password, saltRounds);
-    mysqlConnection.query('INSERT INTO User SET ?', {Name, LastName, Email, Password}, (err, users) => {
-        if(err) return res.status(400).json({
+    mysqlConnection.query('SELECT * FROM User WHERE Email = ?', Email, (err, userDB) => {
+        if(Object.entries(userDB).length != 0) return res.json({
             ok: false,
-            message: "Error en los argumentos",
-            arg: "Name, LastName, Email, Password"
+            message: "Correo Utilizado"
         });
-        idUser = users.insertId;
-        mysqlConnection.query('INSERT INTO Admin SET ?', {idUser}, (err, adminDB) => {
-            if(err) return res.status(400).json({err});
-            res.json({
-                ok: true,
-                admin: {Name, LastName, Email}
+        Password = bcrypt.hashSync(Password, saltRounds);
+        mysqlConnection.query('INSERT INTO User SET ?', {Name, LastName, Email, Password}, (err, users) => {
+            if(err) return res.status(400).json({
+                ok: false,
+                message: "Error en los argumentos",
+                arg: "Name, LastName, Email, Password"
+            });
+            idUser = users.insertId;
+            mysqlConnection.query('INSERT INTO Admin SET ?', {idUser}, (err, adminDB) => {
+                if(err) return res.status(400).json({err});
+                res.json({
+                    ok: true,
+                    admin: {Name, LastName, Email}
+                });
             });
         });
     });
