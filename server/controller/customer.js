@@ -5,25 +5,25 @@ const {checkToken, checkAdmin} = require('../middlewares/authentication');
 const app = express();
 
 app.get('/customer', [checkToken, checkAdmin], (req, res) => {
-    mysqlConnection.query('SELECT Name, LastName, Email, Address, Phone FROM User JOIN Customer USING(idUser)', (err, customers) => {
+    mysqlConnection.query('SELECT idUser, Name, LastName, Email, Address, Phone FROM User JOIN Customer USING(idUser)', (err, customers) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(customers).length == 0) return res.status(400).json({
             ok: false,
             message: "No existen clientes registrados"
         });
-        res.json(customers);
+        return res.json(customers);
     });
 });
 
 app.get('/customer/:id', [checkToken, checkAdmin], (req, res) => {
     const id = req.params.id;
-    mysqlConnection.query('SELECT Name, LastName, Email, Address, Phone FROM User JOIN Customer USING(idUser) WHERE idUser = ?', id, (err, customers) => {
+    mysqlConnection.query('SELECT idUser, Name, LastName, Email, Address, Phone FROM User JOIN Customer USING(idUser) WHERE idUser = ?', id, (err, customers) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(customers).length == 0) return res.status(400).json({
             ok: false,
             message: "Cliente no encontrado"
         });
-        res.json(customers);
+        return res.json(customers);
     });
 });
 
@@ -48,7 +48,7 @@ app.post('/customer', (req, res) => {
             }
             return res.json({
                 ok: true,
-                customer: {Name, LastName, Email, Address, Phone}
+                customer: {idUser, Name, LastName, Email, Address, Phone}
             });
         });
     });
@@ -85,7 +85,7 @@ app.delete('/customer/:id', checkToken, (req, res) => {
         });
         mysqlConnection.query('DELETE FROM Customer WHERE idUser = ?', id);
         mysqlConnection.query('DELETE FROM User WHERE idUser = ?', id);
-        res.json({ok: true});
+        return res.json({ok: true});
     });
 });
 
