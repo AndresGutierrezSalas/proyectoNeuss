@@ -36,7 +36,7 @@ app.get('/order/user/:idUser', [checkToken], (req, res) => {
 
 app.get('/order/:idOrder', [checkToken], (req, res) => {
     let id = req.params.idOrder;
-    mysqlConnection.query('SELECT * FROM CourseOrder WHERE idOrder = ?', id, (err, orderDB) => {
+    mysqlConnection.query('SELECT idCourse FROM CourseOrder WHERE idOrder = ?', id, (err, orderDB) => {
         if(err) return res.status(400).json({err});
             if(Object.entries(orderDB).length == 0) return res.status(400).json({
                 ok: false,
@@ -83,10 +83,49 @@ app.post('/order/:id', [checkToken], (req, res) => {
     });
 });
 
-// app.put('/order/:id', [checkToken], (req, res) => {
-//     let id = req.params.id;
-//     let {Status} = req.body;
+app.put('/order/:id', [checkToken], (req, res) => {
+    let id = req.params.id;
+    let {Status} = req.body;
+    mysqlConnection.query('SELECT * FROM `Order` WHERE idOrder = ?', id, (err, orderDB) => {
+        if(err) return res.status(400).json({err});
+        if(Object.entries(orderDB).length == 0) return res.status(400).json({
+            ok: false,
+            message: "Orden no encontrado"
+        });
+        let check = ["En revision", "En preparacion", "En camino", "Entregado"];
+        let cont = false;
+        for(i in check) if(Status === check[i]) cont = true;
+        if(cont) {
+            mysqlConnection.query('UPDATE `Order` SET ? WHERE idOrder = ?', [{Status}, id]);
+            return res.json({
+               ok: true,
+               idOrder: id,
+               Status 
+            });
+        }
+        else res.status(400).json({
+            ok: false,
+            message: "Estatus no valido",
+            arg: "En preparacion, En camino o Entregado"
+        });
+    });
+});
 
-// });
+app.delete('/order/:id', [checkToken], (req, res) => {
+    let id = req.params.id;
+    mysqlConnection.query('SELECT * FROM `Order` WHERE idOrder = ?', id, (err, orderDB) => {
+        if(err) return res.status(400).json({err});
+        if(Object.entries(orderDB).length == 0) return res.status(400).json({
+            ok: false,
+            message: "Orden no encontrado"
+        });
+        mysqlConnection.query('UPDATE `Order` SET ? WHERE idOrder = ?', [{Status: "Cancelado"}, id]);
+        return res.json({
+            ok: true,
+            idOrder: id,
+            Status: "Cancelado"
+        });
+    });
+});
 
 module.exports = app;
