@@ -27,7 +27,7 @@ app.get('/course/all', [checkToken, checkAdmin], (req, res) => {
 
 app.get('/course/:id', checkToken, (req, res) => {
     const {id} = req.params;
-    mysqlConnection.query('SELECT * FROM Course WHERE idCourse = ?', [id], (err, courses) => {
+    mysqlConnection.query('SELECT * FROM Course WHERE idCourse = ?', id, (err, courses) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(courses).length == 0) return res.status(400).json({
             ok: false,

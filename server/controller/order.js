@@ -1,6 +1,6 @@
 const express = require('express');
 const mysqlConnection = require('../database/database');
-const {checkToken} = require('../middlewares/authentication');
+const {checkToken, checkAdmin} = require('../middlewares/authentication');
 const app = express();
 
 app.get('/order', [checkToken], (req, res) => {
@@ -29,7 +29,9 @@ app.get('/order/user/:idUser', [checkToken], (req, res) => {
                 ok: false,
                 message: "Cliente no registra ordenes"
             });
-            return res.json(orderDB);
+            delete orderDB[0].idCustomer;
+            orderDB[0].idUser = idUser;
+            return res.json({orderDB});
         });
     });
 });
@@ -42,7 +44,7 @@ app.get('/order/:idOrder', [checkToken], (req, res) => {
                 ok: false,
                 message: "Orden no encontrada"
         });
-        return res.json(orderDB);
+        return res.json({orderDB});
     });
 });
 
@@ -83,7 +85,7 @@ app.post('/order/:id', [checkToken], (req, res) => {
     });
 });
 
-app.put('/order/:id', [checkToken], (req, res) => {
+app.put('/order/:id', [checkToken, checkAdmin], (req, res) => {
     let id = req.params.id;
     let {Status} = req.body;
     mysqlConnection.query('SELECT * FROM `Order` WHERE idOrder = ?', id, (err, orderDB) => {

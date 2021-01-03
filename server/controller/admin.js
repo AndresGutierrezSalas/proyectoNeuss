@@ -5,7 +5,7 @@ const {checkToken, checkAdmin} = require('../middlewares/authentication');
 const app = express();
 
 app.get('/admin', [checkToken, checkAdmin], (req, res) => {
-    mysqlConnection.query('SELECT Name, LastName, Email FROM User JOIN Admin USING(idUser)', (err, admins) => {
+    mysqlConnection.query('SELECT idUser, Name, LastName, Email FROM User JOIN Admin USING(idUser)', (err, admins) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(admins).length == 0) return res.status(400).json({
             ok: false,
