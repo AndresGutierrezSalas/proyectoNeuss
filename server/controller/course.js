@@ -37,7 +37,7 @@ app.get('/course/:id', checkToken, (req, res) => {
     });
 });
 
-app.post('/course', [checkToken, checkAdmin], (req, res) => {
+app.post('/course', (req, res) => {
     let {Name, Stock, Price, Description} = req.body;
     Stock = Stock || 0;
     mysqlConnection.query('INSERT INTO Course SET ?', {Name, Stock, Price, Description}, (err, courses) => {
