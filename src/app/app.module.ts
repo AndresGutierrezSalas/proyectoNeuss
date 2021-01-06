@@ -17,6 +17,8 @@ import { platillo } from './platillo/platillo.component';
 
 //importar }PrimeNG
 import { ButtonModule } from 'primeng/button';
+import { PiePaginaComponent } from './pie-pagina/pie-pagina.component';
+import { MenuPrincipalComponent } from './menu-principal/menu-principal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { ButtonModule } from 'primeng/button';
     administrador,
     listaPedidosActivos,
     ListaComponent,
-    platillo
+    platillo,
+    PiePaginaComponent,
+    MenuPrincipalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,17 @@
+#pie{
+    bottom: 0px;
+    right: 0px;
+    border: 1px solid black;
+    margin: 5px;
+    font-weight: bold;
+    background-color: #7789E4;
+    font-size: 15px;
+    position: absolute;
+    width: 1290px;
+    height: 80px;
+    transform: translate(0%, -10%);
+
+}
+#pie h3{
+
+}
