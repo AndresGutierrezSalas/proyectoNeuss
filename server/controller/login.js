@@ -22,6 +22,7 @@ app.post('/login', (req, res) => {
             {expiresIn: process.env.EXPIRATION_TOKEN}  
         );
         res.json({
+            ok: true,
             user: {idUser, Name, LastName, Email, Img},
             token
         });

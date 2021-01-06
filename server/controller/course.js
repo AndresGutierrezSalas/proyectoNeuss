@@ -3,7 +3,7 @@ const mysqlConnection = require('../database/database');
 const {checkToken, checkAdmin} = require('../middlewares/authentication');
 const app = express();
 
-app.get('/course', checkToken, (req, res) => {
+app.get('/course', (req, res) => {
     mysqlConnection.query('SELECT * FROM Course WHERE Stock > 0', (err, courses) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(courses).length == 0) return res.status(400).json({
