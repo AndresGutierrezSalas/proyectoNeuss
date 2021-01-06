@@ -14,11 +14,13 @@ import { administrador } from './administrador/administrador.component';
 import { listaPedidosActivos } from './listaPedidosActivos/listaPedidosActivos.component';
 import { ListaComponent } from './listaPlatillos/lista/lista.component';
 import { platillo } from './platillo/platillo.component';
+import { PiePaginaComponent } from './pie-pagina/pie-pagina.component';
+import { MenuPrincipalComponent } from './menu-principal/menu-principal.component';
 
 //importar }PrimeNG
 import { ButtonModule } from 'primeng/button';
-import { PiePaginaComponent } from './pie-pagina/pie-pagina.component';
-import { MenuPrincipalComponent } from './menu-principal/menu-principal.component';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+
 
 @NgModule({
   declarations: [

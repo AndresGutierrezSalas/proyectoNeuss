@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <menu-principal></menu-principal>
-<administrador></administrador>
+
+<p></p><p></p>
+<div class="center" *ngIf="sesion==false"> <!--este div debe ser un componente nuevo de sesión-->
+<i class="pi pi-user" style="font-size: 1rem" > 
+    <b> Iniciar sesión</b>
+</i>
+
+<div class="p-fluid">
+    <div class="p-field p-grid">
+        <label for="firstname" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Correo</label>
+        <div class="p-col-12 p-md-10">
+            <input id="firstname" type="text" pInputText> 
+        </div>
+    </div>
+    <div class="p-field p-grid">
+        <label for="lastname" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Contraseña</label>
+        <div class="p-col-12 p-md-10">
+            <input id="lastname" type="text" pInputText> 
+        </div>
+    </div>
+</div>
+<p></p>
+<button type="button" pButton class="btn  btn-lg py-2" label="Ingresar" (click)="sesion=true" ></button>
+<p></p>
+
+</div>
+
+
+
+<administrador *ngIf="sesion==true"></administrador>
+
 <pie-pagina></pie-pagina>
 
  <!-- <agregarPlatillo></agregarPlatillo>  todavia no esta hecho-->
