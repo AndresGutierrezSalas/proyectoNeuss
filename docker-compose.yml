@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  nodeserver:
+    container_name: neussNode
+    restart: always
+    build: .
+    ports:
+      - "3050:3050"
+    links:
+      - mysqlserver
+  mysqlserver:
+    container_name: neussMySQL
+    restart: on-failure
+    build: ./server/database
+    environment:
+      DATABASE_HOST: localhost
+      MYSQL_PORT: 3060
+      MYSQL_DATABASE: neuss
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+    ports: 
+      - "3060:8080"
+
+
