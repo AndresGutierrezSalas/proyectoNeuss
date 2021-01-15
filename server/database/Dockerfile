@@ -6,3 +6,5 @@ ENV MYSQL_PASSWORD admin
 ENV DATABASE_HOST localhost
 EXPOSE 3306
 COPY db.sql /docker-entrypoint-initdb.d/
+
+# --default-authentication-plugin=mysql_native_password

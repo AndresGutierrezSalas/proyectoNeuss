@@ -8,6 +8,4 @@ const mysqlConnection = mysql.createConnection({
     port: process.env.MYSQL_PORT
 });
 
-//--default-authentication-plugin=mysql_native_password
-
 module.exports = mysqlConnection;

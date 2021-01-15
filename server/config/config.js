@@ -1,4 +1,3 @@
-// EXPRESS
 const EXPRESS_PORT = 3050;
 process.env.PORT = process.env.PORT || EXPRESS_PORT;
 
@@ -6,12 +5,11 @@ process.env.PORT = process.env.PORT || EXPRESS_PORT;
 process.env.NODE_ENV = process.env.NODE_ENV || "dev";
 
 // Base de Datos
-MYSQL_PORT = 3307;
 process.env.MYSQL_URL = process.env.MYSQL_URL || "localhost";
 process.env.MYSQL_USERNAME = process.env.MYSQL_USERNAME || "admin";
 process.env.MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "admin";
 process.env.MYSQL_DATABASE = "neuss";
-process.env.MYSQL_PORT = process.env.MYSQL_PORT || MYSQL_PORT;
+process.env.MYSQL_PORT = process.env.MYSQL_PORT || 3306;
 
 // bcrypt
 

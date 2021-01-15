@@ -11,7 +11,7 @@ app.use(require('./controller/index'));
 
 mysqlConnection.connect((err, res) => {
     if(err) throw err;
-    console.log("DB Online");
+    console.log(`DB Online on ${process.env.MYSQL_PORT} port`);
 });
 
 app.listen(process.env.PORT, () => {
