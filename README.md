@@ -1,6 +1,15 @@
 # ProyectoINFO248 
 
-## Crear usuario admin
+## Con DockerFile
+
+~~~bash
+$ docker-compose build
+$ docker-compose up
+~~~
+
+## Sin DockerFile
+
+### Crear usuario admin
 
 ~~~bash
 $ sudo mysql
@@ -8,7 +17,7 @@ $ sudo mysql
 > GRANT ALL ON neuss.* TO 'admin'@'localhost';
 ~~~
 
-## Cargar BBDD
+### Cargar BBDD
 
 ~~~bash
 $ cd server/database
@@ -16,3 +25,8 @@ $ sudo mysql
 > SOURCE db.sql
 ~~~
 
+### Iniciar Server
+
+~~~bash
+$ npm start
+~~~
