@@ -13,6 +13,6 @@ export class SesionComponent implements OnInit {
   }
   sesion=false;
   registrarse = false;
-  admin=true;
+  admin=false;
 
 }
