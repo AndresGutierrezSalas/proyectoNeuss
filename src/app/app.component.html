@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <menu-principal></menu-principal>
-
+<externo *ngIf="sesion==true"></externo>
 <p></p><p></p>
-<div class="center" *ngIf="sesion==false"> <!--este div debe ser un componente nuevo de sesión-->
+<div class="center" *ngIf="sesion==false && registrarse==false"> <!--este div debe ser un componente nuevo de sesión-->
 <i class="pi pi-user" style="font-size: 1rem" > 
     <b> Iniciar sesión</b>
 </i>
@@ -24,15 +24,18 @@
 <p></p>
 <button type="button" pButton class="btn  btn-lg py-2" label="Ingresar" (click)="sesion=true" ></button>
 <p></p>
+<button type="button" pButton class="btn  btn-lg py-2" label="Registrarse" (click)="registrarse=true" ></button>
+<p></p>
 
 </div>
 
 
 
-<administrador *ngIf="sesion==true"></administrador>
-
+<administrador *ngIf="sesion==true && admin==true"></administrador>
+<usuario *ngIf="sesion==true && admin==false"></usuario>
+<registrarse *ngIf="registrarse==true"></registrarse>
 <pie-pagina></pie-pagina>
-<externo></externo>
+
 
  <!-- <agregarPlatillo></agregarPlatillo>  todavia no esta hecho-->
  <!-- <listaPlatillos></listaPlatillos> -->  <!-- esta listo-->

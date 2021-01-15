@@ -1,4 +1,4 @@
-<h2 class='text-center text-white'>Platillos disponibles</h2>
+<h2 class='text-center text-black'>Platillos disponibles</h2>
 <div>
 <ul>
     <li class="text" *ngFor="let item of items">
@@ -8,6 +8,8 @@
       <br><br>
       <p class='text-center bg-dark text-white'>$ {{item.price}}</p>
       <p class='text-center bg-dark text-white'>id {{item.id}}</p>
+      <button type="button" pButton class="center2" label="editar" ></button>
+      <button type="button" pButton class="center2" label="eliminar" ></button>
       <br><br><br><br><br>
     </li>
 </ul>

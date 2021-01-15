@@ -24,6 +24,8 @@ import { MenuPrincipalComponent } from './menu-principal/menu-principal.componen
 import { ButtonModule } from 'primeng/button';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { ExternoComponent } from './externo/externo.component';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { RegistrarseComponent } from './registrarse/registrarse.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { ExternoComponent } from './externo/externo.component';
     platillo,
     PiePaginaComponent,
     MenuPrincipalComponent,
-    ExternoComponent
+    ExternoComponent,
+    UsuarioComponent,
+    RegistrarseComponent
   ],
   imports: [
     BrowserModule,

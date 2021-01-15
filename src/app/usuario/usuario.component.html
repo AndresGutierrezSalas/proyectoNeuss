@@ -1,0 +1,26 @@
+<!--<listaPlatillos></listaPlatillos>-->
+
+<body *ngIf="volver==false">
+	<h2 class='text-center text-black'>Platillos disponibles</h2>
+<div>
+<ul>
+    <li class="text" *ngFor="let item of items">
+    <h3 class='text-center bg-dark text-white'>{{item.name}}</h3>
+      <br>
+      <img class="center" src={{item.image}} width="650" height="500">  
+      <br><br>
+      <p class='text-center bg-dark text-white'>$ {{item.price}}</p>
+      <p class='text-center bg-dark text-white'>id {{item.id}}</p>
+      <button type="button" pButton class="center2" label="agregar al pedido" ></button>
+      <br><br><br><br><br>
+    </li>
+</ul>
+</div>	
+	<p class='text-center bg-danger text-white' *ngIf="vacio">necesita agregar platillos</p>
+	<div>
+		<button type="button" pButton class="center btn btn-outline-dark btn-lg" label="Finalizar compra"></button>
+		<button type="button" pButton class="izq btn btn-outline-dark btn-lg" label="Volver" (click)="volver=true"></button>
+	</div>
+	
+</body>
+<usuario *ngIf="volver==true"></usuario>
