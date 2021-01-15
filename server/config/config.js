@@ -1,5 +1,4 @@
-const EXPRESS_PORT = 3050;
-process.env.PORT = process.env.PORT || EXPRESS_PORT;
+process.env.PORT = process.env.PORT || 3050;
 
 // Entorno
 process.env.NODE_ENV = process.env.NODE_ENV || "dev";
