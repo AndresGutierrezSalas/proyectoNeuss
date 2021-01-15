@@ -1,2 +1,8 @@
 FROM mysql:8
+ENV MYSQL_DATABASE neuss
+ENV MYSQL_ROOT_PASSWORD admin
+ENV MYSQL_USER admin
+ENV MYSQL_PASSWORD admin
+ENV DATABASE_HOST localhost
+EXPOSE 3306
 COPY db.sql /docker-entrypoint-initdb.d/

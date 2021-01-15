@@ -1,6 +1,7 @@
 FROM node:14
-RUN mkdir -p /usr/server
-WORKDIR /usr/server
+ENV process.env.MYSQL_URL 3307
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
