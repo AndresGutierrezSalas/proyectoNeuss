@@ -1,20 +1,18 @@
 <form *ngIf="volver==false" >
-  <input 
-  type="text" placeholder="nombre" 
-  name="name" class="form-control" 
-/>
-  <!-- ng model llena el item.name-->
-  <input type="text" placeholder="apellidos" 
-  name="description" class="form-control"
-  /> 
-  <!--se le agrega a todos la variable que lee name="lo que se define en item por ejemplo 'description'"-->
-  <input type="password" placeholder="contraseña" 
-  name="image" class="form-control"
-  
-  />
-  <input type="password" placeholder="vuelva a ingresar la contraseña" 
-  name="price" class="form-control"
-  />
+
+  <input type="text" placeholder="Nombre" 
+  name="nombre" class="form-control" />
+
+  <input type="text" placeholder="Apellidos" 
+  name="apellidos" class="form-control"/> 
+
+  <input type="email" placeholder="Correo" 
+  name="correo" class="form-control"/> 
+
+  <input type="password" placeholder="Contraseña" 
+  name="password" class="form-control"/>
+
+
 
   <button class="btn btn-warning mt-3" type="submit">Registrarse</button>
   &nbsp;
