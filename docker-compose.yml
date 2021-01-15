@@ -14,7 +14,7 @@ services:
   server:
     build: .
     environment: 
-      MYSQL_URL: 172.17.0.1
+      MYSQL_URL: localhost
       MYSQL_USERNAME: admin
       MYSQL_PASSWORD: admin
       MYSQL_DATABASE: neuss
