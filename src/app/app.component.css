@@ -12,3 +12,7 @@
     left: 75%;
     transform: translate(-50%, 0%);
   }
+
+div{
+  background-image: url("../../img/fondoplatillos.png");
+}
