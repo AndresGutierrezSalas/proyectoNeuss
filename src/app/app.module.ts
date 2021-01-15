@@ -8,6 +8,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import {ConexionService } from './services/conexion.service';
 import {FormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 import { listaPlatillos } from './listaPlatillos/listaPlatillos.component';
 import { administrador } from './administrador/administrador.component';
@@ -20,6 +23,7 @@ import { MenuPrincipalComponent } from './menu-principal/menu-principal.componen
 //importar }PrimeNG
 import { ButtonModule } from 'primeng/button';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import { ExternoComponent } from './externo/externo.component';
 
 
 @NgModule({
@@ -31,7 +35,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     ListaComponent,
     platillo,
     PiePaginaComponent,
-    MenuPrincipalComponent
+    MenuPrincipalComponent,
+    ExternoComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     FormsModule,
-    ButtonModule
+    ButtonModule,
+    HttpClientModule
   ],
   providers: [ConexionService],
   bootstrap: [AppComponent]

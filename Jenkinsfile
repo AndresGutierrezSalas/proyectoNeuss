@@ -4,7 +4,7 @@ pipeline {
     stage('Checkout, Test & Build') {
         agent {
           docker {
-            image 'node:10-alpine' 
+            image 'node' 
             args '-p 3001:3000'
           }
         }
@@ -15,6 +15,9 @@ pipeline {
           stage('Install') {
             steps {
               sh 'npm install'
+              sh 'npm install primeng --save'
+              sh 'npm install primeicons --save'
+              sh 'npm install primeflex --save'
             }
           }
           stage('Test') {
