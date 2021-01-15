@@ -10,7 +10,10 @@
       <img class="center" src={{item.image}} width="650" height="500">  
       <br><br>
       <p class='text-center bg-dark text-white'>$ {{item.price}}</p>
-      <p class='text-center bg-dark text-white'>id {{item.id}}</p>
+      <p class='text-center bg-dark text-white'>Descripción: {{item.description}}</p>
+
+      <input type="number" name="cantidad" min="0" max="10">
+      &nbsp;
       <button type="button" pButton class="center2" label="agregar al pedido" ></button>
       <br><br><br><br><br>
     </li>
@@ -19,7 +22,8 @@
 	<p class='text-center bg-danger text-white' *ngIf="vacio">necesita agregar platillos</p>
 	<div>
 		<button type="button" pButton class="center btn btn-outline-dark btn-lg" label="Finalizar compra"></button>
-		<button type="button" pButton class="izq btn btn-outline-dark btn-lg" label="Salir" (click)="volver=true"></button>
+    &nbsp;
+    <button type="button" pButton class="izq btn btn-outline-dark btn-lg" label="Salir" (click)="volver=true"></button>
 	</div>
 	
 </body>
