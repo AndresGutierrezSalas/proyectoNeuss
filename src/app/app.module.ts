@@ -26,6 +26,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import { ExternoComponent } from './externo/externo.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { RegistrarseComponent } from './registrarse/registrarse.component';
+import { SesionComponent } from './sesion/sesion.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { RegistrarseComponent } from './registrarse/registrarse.component';
     MenuPrincipalComponent,
     ExternoComponent,
     UsuarioComponent,
-    RegistrarseComponent
+    RegistrarseComponent,
+    SesionComponent
   ],
   imports: [
     BrowserModule,

@@ -19,8 +19,8 @@
 	<p class='text-center bg-danger text-white' *ngIf="vacio">necesita agregar platillos</p>
 	<div>
 		<button type="button" pButton class="center btn btn-outline-dark btn-lg" label="Finalizar compra"></button>
-		<button type="button" pButton class="izq btn btn-outline-dark btn-lg" label="Volver" (click)="volver=true"></button>
+		<button type="button" pButton class="izq btn btn-outline-dark btn-lg" label="Salir" (click)="volver=true"></button>
 	</div>
 	
 </body>
-<usuario *ngIf="volver==true"></usuario>
+<sesion *ngIf="volver==true"></sesion>
