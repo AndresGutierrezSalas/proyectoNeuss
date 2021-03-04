@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        .main {
+            background-image: url(https://i.pinimg.com/736x/4a/e8/bf/4ae8bf6b3a1fc49ca19367828dbef953.jpg);
+            background-position: bottom;
+            overflow: hidden;
+            height: 70vh;
+        }
+        .footer {
+            height: 30vh;
+            background-color: #ccc;
+        }
+        
+        .main .title {
+            border: 1px solid #fff;
+            width: 300px;
+            height: 50px;
+            text-align: center;
+            color: #fff;
+            top: calc(80vh - 45%);
+            left: 50%;
+            position: absolute;
+            margin-left: -150px;
+        }
+        .center{
+            width: 300px;
+            height: 50px;
+            left: 50%;
+            top: calc(80vh - 45%);
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <h1 class="title">
+        Delivery Neuss.
+    </h1>
+</div>
+<div class="footer">
+    <!--Este es el footer.-->
+    <ul>
+        <li>
+            <a routerLink="/auth/login">
+                Ir a Login
+            </a>
+        </li>
+
+        <li>
+            <a routerLink="/auth/registro">
+                Ir a Registro
+            </a>
+        </li>
+
+        <li>
+            <a routerLink="/platillos/listaPlatillos">
+                Ir al listado
+            </a>
+        </li>
+        
+
+    </ul>
+</div>
+</body>
+</html>
