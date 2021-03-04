@@ -3,7 +3,7 @@ const mysqlConnection = require('../database/database');
 const {checkToken, checkAdmin} = require('../middlewares/authentication');
 const app = express();
 
-app.get('/order', [checkToken], (req, res) => {
+app.get('/order', [checkToken, checkAdmin], (req, res) => {
     mysqlConnection.query('SELECT * FROM `Order`', (err, orders) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(orders).length == 0) return res.status(400).json({
@@ -14,8 +14,8 @@ app.get('/order', [checkToken], (req, res) => {
     });
 });
 
-app.get('/order/user/:idUser', [checkToken], (req, res) => {
-    let idUser = req.params.idUser;
+app.get('/order/user', [checkToken], (req, res) => {
+    let idUser = req.user.idUser;
     mysqlConnection.query('SELECT * FROM User JOIN Customer USING(idUser) WHERE idUser = ?', idUser, (err, userDB) => {
         if(err) return res.status(400).json({err});
         if(Object.entries(userDB).length == 0) return res.status(400).json({
@@ -48,8 +48,8 @@ app.get('/order/:idOrder', [checkToken], (req, res) => {
     });
 });
 
-app.post('/order/:id', [checkToken], (req, res) => {
-    let id = req.params.id;
+app.post('/order', [checkToken], (req, res) => {
+    let id = req.user.idUser;
     let body = req.body;
     if(Object.entries(body).length == 0) return res.status(400).json({
         ok: false,

@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `neuss`.`Course` (
   `Stock` INT NULL,
   `Price` INT NULL,
   `Img` VARCHAR(45) NULL,
-  `Description` VARCHAR(45) NULL,
+  `Description` VARCHAR(128) NULL,
   PRIMARY KEY (`idCourse`))
 ENGINE = InnoDB;
 
